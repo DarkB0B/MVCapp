@@ -1,0 +1,98 @@
+﻿{
+  "teams": [
+    {
+      "name": "Genk",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/EIR0Ac3NhURLPE-ioY_G2A_48x48.png"
+    },
+    {
+      "name": "Antwerp",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/j11mldrHALx7763baZcpDA_48x48.png"
+    },
+    {
+      "name": "Club Brugge",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/5FQBXpID1LAQJb0BOnmTpw_48x48.png"
+    },
+    {
+      "name": "Anderlecht",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/nS8-epK4BE-qZHtK5M9Ejg_48x48.png"
+    },
+    {
+      "name": "Union SG",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/6X2ZgFpkGODBF70ZiTGKrw_48x48.png"
+    },
+    {
+      "name": "Gent",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/rznN7pdEI3m_96awvtCsQw_48x48.png"
+    },
+    {
+      "name": "Standard Liege",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/pDbENcJJmXsulXPDq0ofiQ_48x48.png"
+    },
+    {
+      "name": "Westerlo",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/mYdYJ-mIL4MpB8jy9cY-SQ_48x48.png"
+    },
+    {
+      "name": "Cercle Brugge",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/o3scBTE6LlaABlXys32nLQ_48x48.png"
+    },
+    {
+      "name": "Charleroi",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/1gU91n9eyed5Stgvs49Ogw_48x48.png"
+    },
+    {
+      "name": "OHL",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/9W4VKkg6FW8LsS3YzAlFqg_48x48.png"
+    },
+    {
+      "name": "STVV",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/5YhowmjDs8_JqLghyFF-VQ_48x48.png"
+    },
+    {
+      "name": "Kortrijk",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/bshQkHIRrvDOz_t-CwAjDA_48x48.png"
+    },
+    {
+      "name": "Mechelen",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/HdNjrskzYmcW0zsWbsA8OA_48x48.png"
+    },
+    {
+      "name": "Zulte Waregem",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/4ppUGwrxM51R0cQwJZlyeg_48x48.png"
+    },
+    {
+      "name": "Eupen",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/1D9NRVS7AQwzzUiLHBC_5g_48x48.png"
+    },
+    {
+      "name": "Oostende",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/a9R_aZ9cJlx0WObBVHgiUA_48x48.png"
+    },
+    {
+      "name": "Seraing United",
+      "leagueId": 1,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/rxqeGumLXojIu3aQGI_CCQ_48x48.png"
+    },
+    {
+      "name": "weirdos"
+    }
+
+  ]
+} 

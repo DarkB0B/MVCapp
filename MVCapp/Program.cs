@@ -21,13 +21,29 @@ namespace MVCapp
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddScoped<DataSeeder>();
             var app = builder.Build();
+            async void SeedData(IHost app)
+            {
+                var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
+                if (scopedFactory != null)
+                {
+                    using (var scope = scopedFactory.CreateScope())
+                    {
+                        var service = scope.ServiceProvider.GetService<DataSeeder>();
+                        if (service is not null)
+                        {
+                            await service.Seed();
+                        }
+                    }
+                }
+            }           
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
+                
             }
             else
             {
@@ -48,6 +64,17 @@ namespace MVCapp
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                if (context.Database.GetPendingMigrations().Any())
+                {
+                    context.Database.Migrate();
+                }
+                SeedData(app);
+            }
             app.Run();
         }
     }

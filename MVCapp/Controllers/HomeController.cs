@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using MVCapp.Data;
+using MVCapp.Models;
 using MVCapp.ViewModels;
 using System.Diagnostics;
 
@@ -7,20 +11,28 @@ namespace MVCapp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View();
+            sortOrder = "Date";
+            ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
+            List<Match> matches = await _context.Matches.Include(m => m.HomeTeam).Include(m => m.AwayTeam).ToListAsync(); ;
+            matches = matches.OrderBy(m => m.Date).ToList();
+            return View(matches);
         }
 
-        public IActionResult Privacy()
+
+
+        public async Task<IActionResult> Favourite(int id)
         {
-            return View();
+            //add match to user's favourites
+            throw new NotImplementedException();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

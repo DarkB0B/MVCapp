@@ -10,5 +10,6 @@
         public int HomeScore { get; set; }
         public int AwayScore { get; set; }
         public DateTime Date { get; set; }
+        public int leagueRound { get; set; }
     }
 }
