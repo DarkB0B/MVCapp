@@ -16,11 +16,9 @@
     <thead>
         <tr>
             <th>Home Team</th>
+            <th>Score</th>
             <th>Away Team</th>
-            <th>Home Score</th>
-            <th>Away Score</th>
             <th>Date</th>
-            <th>League Round</th>
         </tr>
     </thead>
     <tbody>
@@ -28,11 +26,9 @@
         {
             <tr>
                 <td>@match.HomeTeamName <img src="@match.HomeTeamIcon" /></td>
+                <td>@match.HomeScore - @match.AwayScore</td>
                 <td>@match.AwayTeamName <img src="@match.AwayTeamIcon" /></td>
-                <td>@match.HomeScore</td>
-                <td>@match.AwayScore</td>
-                <td>@match.Date</td>
-                <td>@match.LeagueRound</td>
+                <td>@match.Date.ToString("dd.MM.yyyy")</td>
             </tr>
         }
     </tbody>

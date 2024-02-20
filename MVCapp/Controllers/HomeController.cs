@@ -19,15 +19,17 @@ namespace MVCapp.Controllers
             _context = context;
         }
 
-        // GET: Home
+
         public async Task<IActionResult> Index(int? selectedRound)
         {
             var rounds = await _context.Matches.Select(m => m.leagueRound).Distinct().ToListAsync();
 
             var viewModel = new List<MatchViewModel>();
 
-            if (selectedRound.HasValue)
+            if (!selectedRound.HasValue)
             {
+                selectedRound = rounds.Last();
+            }
                 var matches = await _context.Matches
                     .Include(m => m.HomeTeam)
                     .Include(m => m.AwayTeam)
@@ -46,7 +48,7 @@ namespace MVCapp.Controllers
                     Date = m.Date,
                     LeagueRound = m.leagueRound
                 }).ToList();
-            }
+            
 
             ViewBag.Rounds = new SelectList(rounds, selectedRound);
 
