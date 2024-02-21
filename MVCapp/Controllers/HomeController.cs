@@ -20,39 +20,33 @@ namespace MVCapp.Controllers
         }
 
 
-        public async Task<IActionResult> Index(int? selectedRound)
+        public IActionResult Index(int? selectedLeagueId)
         {
-            var rounds = await _context.Matches.Select(m => m.leagueRound).Distinct().ToListAsync();
-
-            var viewModel = new List<MatchViewModel>();
-
-            if (!selectedRound.HasValue)
-            {
-                selectedRound = rounds.Last();
-            }
-                var matches = await _context.Matches
-                    .Include(m => m.HomeTeam)
-                    .Include(m => m.AwayTeam)
-                    .Where(m => m.leagueRound == selectedRound.Value)
-                    .ToListAsync();
-
-                viewModel = matches.Select(m => new MatchViewModel
-                {
-                    Id = m.Id,
-                    HomeTeamName = m.HomeTeam.Name,
-                    HomeTeamIcon = m.HomeTeam.Logo,
-                    AwayTeamName = m.AwayTeam.Name,
-                    AwayTeamIcon = m.AwayTeam.Logo,
-                    HomeScore = m.HomeScore,
-                    AwayScore = m.AwayScore,
-                    Date = m.Date,
-                    LeagueRound = m.leagueRound
-                }).ToList();
+            var leagues = _context.Leagues.ToList();
             
 
-            ViewBag.Rounds = new SelectList(rounds, selectedRound);
+            List<Team> teams = new List<Team>();
+            if (!selectedLeagueId.HasValue && leagues != null && leagues.Count > 0)
+            { 
+                selectedLeagueId = leagues.FirstOrDefault().Id;
+            }
+            
+                var selectedLeague = _context.Leagues
+                    .Include(l => l.Teams)
+                    .ThenInclude(t => t.Matches)
+                    .FirstOrDefault(l => l.Id == selectedLeagueId.Value);
 
-            return View(viewModel);
+                if (selectedLeague != null)
+                {
+                    foreach (var team in selectedLeague.Teams)
+                    {
+                        teams.Add(team);
+                    }
+                }
+            
+            ViewBag.Leagues = new SelectList(leagues, "Id", "Name", selectedLeagueId);
+            return View(teams);
         }
     }
+
 }

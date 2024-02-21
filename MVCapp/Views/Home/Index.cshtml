@@ -1,34 +1,31 @@
-﻿@model List<MVCapp.ViewModels.MatchViewModel>
+﻿@model List<MVCapp.Models.Team>
 
 @{
-    ViewBag.Title = "Matches";
+    ViewBag.Title = "Leagues";
 }
 
-<h2>Matches</h2>
+<h2>League Table</h2>
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
-    <label for="selectedRound">League Round:</label>
-    @Html.DropDownList("selectedRound", (SelectList)ViewBag.Rounds, "Select Round", new { onchange = "this.form.submit();" })
+    <label for="selectedRound">League:</label>
+    @Html.DropDownList("selectedLeagueId", (SelectList)ViewBag.Leagues, "Select League", new { onchange = "this.form.submit();" })
 }
 
 <table class="table">
     <thead>
         <tr>
-            <th>Home Team</th>
-            <th>Score</th>
-            <th>Away Team</th>
-            <th>Date</th>
+            <th>Team</th>
+            <th>PKT</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var match in Model)
+        @foreach (var team in Model)
         {
             <tr>
-                <td>@match.HomeTeamName <img src="@match.HomeTeamIcon" /></td>
-                <td>@match.HomeScore - @match.AwayScore</td>
-                <td>@match.AwayTeamName <img src="@match.AwayTeamIcon" /></td>
-                <td>@match.Date.ToString("dd.MM.yyyy")</td>
+                <td>@team.Name <img src="@team.Logo" /></td>
+                <td>20</td>
+
             </tr>
         }
     </tbody>

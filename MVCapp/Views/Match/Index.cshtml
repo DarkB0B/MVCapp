@@ -1,0 +1,35 @@
+﻿@model List<MVCapp.ViewModels.MatchViewModel>
+
+@{
+    ViewBag.Title = "Leagues";
+}
+
+<h2>League's Round Matches</h2>
+
+@using (Html.BeginForm("Index", "Match", FormMethod.Get))
+{
+    <label for="selectedRound">League Round:</label>
+    @Html.DropDownList("selectedRound", (SelectList)ViewBag.Rounds, "Select Round", new { onchange = "this.form.submit();" })
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Home Team</th>
+            <th>Score</th>
+            <th>Away Team</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var match in Model)
+        {
+            <tr>
+                <td>@match.HomeTeamName <img src="@match.HomeTeamIcon" /></td>
+                <td>@match.HomeScore - @match.AwayScore</td>
+                <td>@match.AwayTeamName <img src="@match.AwayTeamIcon" /></td>
+                <td>@match.Date.ToString("dd.MM.yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
