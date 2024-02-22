@@ -44,3 +44,38 @@ body {
 .gray-circle {
     background-color: gray;
 }
+#slideOutContainer {
+    position: fixed;
+    top: 0;
+    right: -300px; 
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+}
+
+#slideOutContent {
+    padding: 20px;
+}
+
+.slideOutButton {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    text-decoration: underline;
+}
+#teamInfo {
+
+}

@@ -2,12 +2,15 @@
 
 @{
     ViewBag.Title = "Leagues";
+    ViewBag.Title = "Rounds";
 }
 
 <h2>League's Round Matches</h2>
 
 @using (Html.BeginForm("Index", "Match", FormMethod.Get))
 {
+    <label for="selectedLeagueId">League:</label>
+    @Html.DropDownList("selectedLeagueId", (SelectList)ViewBag.Leagues, "Select League", new { onchange = "this.form.submit();" })
     <label for="selectedRound">League Round:</label>
     @Html.DropDownList("selectedRound", (SelectList)ViewBag.Rounds, "Select Round", new { onchange = "this.form.submit();" })
 }

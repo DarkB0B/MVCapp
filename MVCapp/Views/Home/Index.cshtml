@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
-    <label for="selectedRound">League:</label>
+    <label for="selectedLeagueId">League:</label>
     @Html.DropDownList("selectedLeagueId", (SelectList)ViewBag.Leagues, "Select League", new { onchange = "this.form.submit();" })
 }
 
@@ -23,13 +23,12 @@
     <tbody>
         @foreach (var team in Model)
         {
-            <tr>
+            <tr class="teamRow" data-teamid="@team.Id">
                 <td>@team.Name <img src="@team.Logo" /></td>
                 <td>20</td>
                 <td>
                     @foreach (var match in team.AllMatches.OrderByDescending(m => m.Date).Take(5))
                     {
-                        Console.WriteLine("  Match Id == " + match.Id);
                         if (match.HomeTeamId == team.Id)
                         {
                             <span class="@GetMatchResultClass(match.HomeScore, match.AwayScore)"></span>
@@ -41,12 +40,54 @@
                     }
                 </td>
             </tr>
-            Console.WriteLine("}");
         }
     </tbody>
 </table>
 
+<div id="slideOutContainer">
+    <div id="slideOutContent">
+        <div class="closeButton" onclick="closeSlideOut()">X</div>
+        <div class="teamDetails">
+        <img src="" alt="Team Icon" id="teamIcon" />
+        <div id="teamInfo"></div>
+        </div>
+        
+        <ul id="matchesList"></ul>
+    </div>
+</div>
+@section scripts {
+    <script>
+        const slideOutContainer = document.getElementById('slideOutContainer');
+        const teamInfoContainer = document.getElementById('teamInfo');
+        const teamIcon = document.getElementById('teamIcon');
+        const matchesListContainer = document.getElementById('matchesList');
+        let teamIconUrl = '';
+
+        function openSlideOut(teamId, teamName, iconUrl) {
+            teamInfoContainer.innerHTML = `<h3>${teamName}</h3>`;
+            teamIcon.src = iconUrl;
+            matchesListContainer.innerHTML = `<li>Match 1</li><li>Match 2</li><li>Match 3</li>`;
+
+            slideOutContainer.style.left = '0';
+        }
+
+        function closeSlideOut() {
+            slideOutContainer.style.left = '-300px';
+        }
+
+        const teamRows = document.querySelectorAll('.teamRow');
+        teamRows.forEach(row => {
+            row.addEventListener('click', () => {
+                const teamId = row.getAttribute('data-teamid');
+                const teamName = row.cells[0].innerText;
+                teamIconUrl = row.cells[0].querySelector('img').src;
+                openSlideOut(teamId, teamName, teamIconUrl);
+            });
+        });
+    </script>
+}
 @functions {
+    
     public string GetMatchResultClass(int teamScore, int opponentScore)
     {
         if (teamScore > opponentScore)
