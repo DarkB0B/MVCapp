@@ -22,6 +22,11 @@ namespace MVCapp
                 .AddDefaultTokenProviders();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DataSeeder>();
+            builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            });
             var app = builder.Build();
             async void SeedData(IHost app)
             {

@@ -51,8 +51,8 @@
         <img src="" alt="Team Icon" id="teamIcon" />
         <div id="teamInfo"></div>
         </div>
-        
-        <ul id="matchesList"></ul>
+        <hr class="line" />
+        <ul id="matchList"></ul>
     </div>
 </div>
 @section scripts {
@@ -60,19 +60,39 @@
         const slideOutContainer = document.getElementById('slideOutContainer');
         const teamInfoContainer = document.getElementById('teamInfo');
         const teamIcon = document.getElementById('teamIcon');
-        const matchesListContainer = document.getElementById('matchesList');
+        const matchListContainer = document.getElementById('matchList');
         let teamIconUrl = '';
 
         function openSlideOut(teamId, teamName, iconUrl) {
             teamInfoContainer.innerHTML = `<h3>${teamName}</h3>`;
             teamIcon.src = iconUrl;
-            matchesListContainer.innerHTML = `<li>Match 1</li><li>Match 2</li><li>Match 3</li>`;
 
-            slideOutContainer.style.left = '0';
+            fetch(`/Home/GetTeamMatches?teamId=${teamId}`)
+                .then(response => response.json())
+                .then(responseData => responseData)
+                .then(matches => {
+                    console.log(matches);
+                    let html = '';
+                    matches.forEach(match => {
+                        html += `
+                                <li>
+                                            ${match.HomeTeam.Name}
+                                            <img src="${match.HomeTeam.Logo}" class="small-icon" />
+                                            ${match.HomeScore} - ${match.AwayScore}
+                                            ${match.AwayTeam.Name}
+                                            <img src="${match.AwayTeam.Logo}" class="small-icon" />
+                                </li>`;
+                    });
+                    matchListContainer.innerHTML = html;
+                    slideOutContainer.style.right = '0';
+                })
+                .catch(error => {
+                    console.error('Error fetching matches:', error);
+                });
         }
 
         function closeSlideOut() {
-            slideOutContainer.style.left = '-300px';
+            slideOutContainer.style.right = '-400px';
         }
 
         const teamRows = document.querySelectorAll('.teamRow');
@@ -86,8 +106,9 @@
         });
     </script>
 }
+}
 @functions {
-    
+
     public string GetMatchResultClass(int teamScore, int opponentScore)
     {
         if (teamScore > opponentScore)

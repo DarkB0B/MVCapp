@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing;
 using MVCapp.Data;
 using MVCapp.Models;
 using MVCapp.ViewModels;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVCapp.Controllers
 {
@@ -49,7 +52,26 @@ namespace MVCapp.Controllers
             ViewBag.Leagues = new SelectList(leagues, "Id", "Name", selectedLeagueId);
             return View(teams);
         }
+        public IActionResult GetTeamMatches(int teamId)
+        {
+            List<Match> teamMatches = _context.Matches
+                .Where(match => match.HomeTeamId == teamId || match.AwayTeamId == teamId)
+                .Include(t => t.HomeTeam)
+                .Include(tt => tt.AwayTeam)
+                .ToList();
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.None
+            };
 
+            var jsonResult = new ContentResult
+            {
+                Content = JsonConvert.SerializeObject(teamMatches, settings),
+                ContentType = "application/json"
+            };
+            return jsonResult;
+        }
 
     }
 
