@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MVCapp.Data.Migrations
+namespace MVCapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -62,6 +62,9 @@ namespace MVCapp.Data.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("leagueRound")
                         .HasColumnType("int");
 
@@ -70,6 +73,8 @@ namespace MVCapp.Data.Migrations
                     b.HasIndex("AwayTeamId");
 
                     b.HasIndex("HomeTeamId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Matches");
                 });
@@ -309,16 +314,20 @@ namespace MVCapp.Data.Migrations
             modelBuilder.Entity("MVCapp.Models.Match", b =>
                 {
                     b.HasOne("MVCapp.Models.Team", "AwayTeam")
-                        .WithMany()
+                        .WithMany("AwayMatches")
                         .HasForeignKey("AwayTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MVCapp.Models.Team", "HomeTeam")
-                        .WithMany("Matches")
+                        .WithMany("HomeMatches")
                         .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MVCapp.Models.Team", null)
+                        .WithMany("AllMatches")
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("AwayTeam");
 
@@ -398,7 +407,11 @@ namespace MVCapp.Data.Migrations
 
             modelBuilder.Entity("MVCapp.Models.Team", b =>
                 {
-                    b.Navigation("Matches");
+                    b.Navigation("AllMatches");
+
+                    b.Navigation("AwayMatches");
+
+                    b.Navigation("HomeMatches");
                 });
 
             modelBuilder.Entity("MVCapp.Models.User", b =>

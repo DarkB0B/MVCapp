@@ -17,6 +17,7 @@
         <tr>
             <th>Team</th>
             <th>PKT</th>
+            <th>Last Matchs</th>
         </tr>
     </thead>
     <tbody>
@@ -25,8 +26,40 @@
             <tr>
                 <td>@team.Name <img src="@team.Logo" /></td>
                 <td>20</td>
-
+                <td>
+                    @foreach (var match in team.AllMatches.OrderByDescending(m => m.Date).Take(5))
+                    {
+                        Console.WriteLine("  Match Id == " + match.Id);
+                        if (match.HomeTeamId == team.Id)
+                        {
+                            <span class="@GetMatchResultClass(match.HomeScore, match.AwayScore)"></span>
+                        }
+                        else
+                        {
+                            <span class="@GetMatchResultClass(match.AwayScore, match.HomeScore)"></span>
+                        }
+                    }
+                </td>
             </tr>
+            Console.WriteLine("}");
         }
     </tbody>
 </table>
+
+@functions {
+    public string GetMatchResultClass(int teamScore, int opponentScore)
+    {
+        if (teamScore > opponentScore)
+        {
+            return "result-symbol green-circle";
+        }
+        else if (teamScore < opponentScore)
+        {
+            return "result-symbol red-circle";
+        }
+        else
+        {
+            return "result-symbol gray-circle";
+        }
+    }
+}

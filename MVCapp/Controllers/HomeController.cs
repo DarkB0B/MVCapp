@@ -33,7 +33,9 @@ namespace MVCapp.Controllers
             
                 var selectedLeague = _context.Leagues
                     .Include(l => l.Teams)
-                    .ThenInclude(t => t.Matches)
+                    .ThenInclude(t => t.HomeMatches)
+                    .Include(l => l.Teams)
+                    .ThenInclude(t => t.AwayMatches)
                     .FirstOrDefault(l => l.Id == selectedLeagueId.Value);
 
                 if (selectedLeague != null)
@@ -46,6 +48,11 @@ namespace MVCapp.Controllers
             
             ViewBag.Leagues = new SelectList(leagues, "Id", "Name", selectedLeagueId);
             return View(teams);
+        }
+        public ActionResult GetMatches(int teamId)
+        {
+            var matches = _context.Matches.Where(m => m.HomeTeamId == teamId || m.AwayTeamId == teamId).OrderByDescending(m => m.Date).Take(10).ToList();
+            return PartialView("_MatchesPartial", matches);
         }
     }
 

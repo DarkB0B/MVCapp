@@ -14,14 +14,14 @@ namespace MVCapp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Match>()
-            .HasOne(m => m.HomeTeam)
-            .WithMany(t => t.Matches)
-            .HasForeignKey(m => m.HomeTeamId)
-            .OnDelete(DeleteBehavior.Restrict); 
+        .HasOne(m => m.HomeTeam)
+        .WithMany(t => t.HomeMatches)
+        .HasForeignKey(m => m.HomeTeamId)
+        .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.AwayTeam)
-                .WithMany()
+                .WithMany(t => t.AwayMatches)
                 .HasForeignKey(m => m.AwayTeamId)
                 .OnDelete(DeleteBehavior.Restrict);
 

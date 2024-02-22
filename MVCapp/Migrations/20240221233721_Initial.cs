@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MVCapp.Data.Migrations
+namespace MVCapp.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,7 +207,8 @@ namespace MVCapp.Data.Migrations
                     HomeScore = table.Column<int>(type: "int", nullable: false),
                     AwayScore = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    leagueRound = table.Column<int>(type: "int", nullable: false)
+                    leagueRound = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,6 +225,11 @@ namespace MVCapp.Data.Migrations
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Matches_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -274,6 +280,11 @@ namespace MVCapp.Data.Migrations
                 name: "IX_Matches_HomeTeamId",
                 table: "Matches",
                 column: "HomeTeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matches_TeamId",
+                table: "Matches",
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_LeagueId",
