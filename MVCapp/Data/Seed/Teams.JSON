@@ -91,7 +91,14 @@
       "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/rxqeGumLXojIu3aQGI_CCQ_48x48.png"
     },
     {
-      "name": "weirdos"
+      "name": "Test team1",
+      "leagueId": 2,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/rxqeGumLXojIu3aQGI_CCQ_48x48.png"
+    },
+    {
+      "name": "Test team2",
+      "leagueId": 2,
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/a9R_aZ9cJlx0WObBVHgiUA_48x48.png"
     }
 
   ]

@@ -143,6 +143,15 @@
       "awayScore": 0,
       "date": "31.07.2022",
       "leagueRound": 2
+    },
+    {
+      "homeTeamId": 19,
+      "homeScore": 1,
+      "awayTeamId": 20,
+      "awayScore": 0,
+      "date": "30.07.2023",
+      "leagueRound": 1
     }
+
   ]
 }

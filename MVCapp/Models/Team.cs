@@ -11,7 +11,7 @@
 
         public List<Match> AwayMatches { get; set; } = new List<Match>();
 
-        public IEnumerable<Match> AllMatches => HomeMatches.Concat(AwayMatches);
+        public IEnumerable<Match> AllMatches => HomeMatches.Concat(AwayMatches).Where(match => match != null).ToList();
 
     }
 }

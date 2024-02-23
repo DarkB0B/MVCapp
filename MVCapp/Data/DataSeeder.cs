@@ -95,6 +95,7 @@ namespace MVCapp.Data
                             newTeam.Logo = team.logo;
                         }
                         await _context.Teams.AddAsync(newTeam);
+                        Console.WriteLine($"{team.name} added to {teamsLeague.Name} with {team.Id}");
                     }
                     await _context.SaveChangesAsync();
                 }

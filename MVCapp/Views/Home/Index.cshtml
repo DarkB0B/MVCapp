@@ -24,7 +24,10 @@
             <th>Team</th>
             <th>PKT</th>
             <th>Last Matchs</th>
+            @if (User.Identity.IsAuthenticated)
+                {
             <th>Action</th>
+                }
         </tr>
     </thead>
     <tbody>
