@@ -96,3 +96,13 @@ body {
     height: 1px;
     background-color: #000;
 }
+.remove-favourite-button {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+}
+.add-favourite-button {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+}

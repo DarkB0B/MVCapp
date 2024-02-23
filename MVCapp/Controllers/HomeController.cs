@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,12 @@ namespace MVCapp.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
 
@@ -73,6 +76,39 @@ namespace MVCapp.Controllers
             return jsonResult;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddFavourite(int teamId)
+        {
+            var team = _context.Teams.FirstOrDefault(t => t.Id == teamId);
+            if (team == null)
+                return NotFound();
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            user.FavouriteTeams.Add(team);
+            await _userManager.UpdateAsync(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFavourite(int teamId)
+        {
+            var team = _context.Teams.FirstOrDefault(t => t.Id == teamId);
+            if (team == null)
+                return NotFound();
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            user.FavouriteTeams.Remove(team);
+            await _userManager.UpdateAsync(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 
 }
